@@ -6,7 +6,7 @@ python:
 services:
   - redis-server
 install:
-  - pip install tox-travis
+  - pip install tox-travis coverage coveralls
   - pip install -e .
 script:
   - tox
