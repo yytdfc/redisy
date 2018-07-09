@@ -1,0 +1,3 @@
+global-exclude *.pyc
+include README.md LICENSE
+recursive-include redisy *
