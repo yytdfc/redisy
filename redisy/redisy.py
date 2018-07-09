@@ -1,14 +1,14 @@
-#!/usr/bin/env python
-# encoding: utf-8
-
-import redis
+try:
+    from redis import Redis
+except ImportError:
+    Redis = object
 from .converter import Converter
 from .redis_list import RedisList
 from .redis_set import RedisSet
 from .redis_hash import RedisHash
 
 
-class Redisy(redis.Redis):
+class Redisy(Redis):
     def __init__(self, **args):
         super(Redisy, self).__init__(**args)
         self.converter_ = Converter('json')
