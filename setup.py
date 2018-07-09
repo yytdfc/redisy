@@ -8,7 +8,7 @@ setup(
     name='redisy',
     version=redisy.__version__,
     description='A higher-level python native object api based on redisy-py',
-    long_description=open('./README.md').read(),
+    long_description=open('./README.rst').read(),
     maintainer='yytdfc',
     maintainer_email='fuchen@foxmail.com',
     keywords=['redis', 'api'],
