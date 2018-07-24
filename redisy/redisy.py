@@ -35,4 +35,16 @@ class Redisy(Redis):
         elif t is dict:
             RedisHash(self, key, self.converter_, value)
         else:
-            self.set(key, self.converter_.from_value(value))
+            super(Redisy, self).set(key, self.converter_.from_value(value))
+
+    def __delitem__(self, key):
+        self.delete(key)
+
+    def list(self, key):
+        return RedisList(self, key, self.converter_)
+
+    def set(self, key):
+        return RedisSet(self, key, self.converter_)
+
+    def hash(self, key):
+        return RedisHash(self, key, self.converter_)

@@ -27,11 +27,12 @@ def test_keyvalue():
     def set_get(key, value):
         r[key] = value
         assert (r[key] == value)
-
     set_get(1, 2)
     set_get(2, '123')
     set_get(3, '[234]')
     assert (r['none_key'] is None)
+    del r[1]
+    assert (r[1] is None)
 
 
 def test_list():
@@ -61,6 +62,11 @@ def test_list():
     assert (l[-4:] == ['f', 'i', 'f', 'a'])
     print(l)
     print(repr(l))
+    l2 = r.list('l2')
+    l2.reset(list_raw)
+    for i, j in zip(list_raw, l2):
+        assert (i == j)
+    del r['l2']
 
 
 def test_set():
@@ -73,10 +79,16 @@ def test_set():
     assert (10 not in s)
     s.add(10)
     assert (10 in s)
+    del s[10]
+    assert (10 not in s)
     p = s.pop()
     assert (p not in s)
     print(s)
     print(repr(s))
+    s2 = r.set('s2')
+    s2.reset(se)
+    assert (s2() == se)
+    del r['s2']
 
 
 def test_hash():
@@ -104,3 +116,7 @@ def test_hash():
     print(repr(d))
     print(d.keys())
     print(d.values())
+    d2 = r.hash('d2')
+    d2.reset(dic)
+    assert(d2()==dic)
+    del r['d2']

@@ -36,9 +36,10 @@ class RedisList:
     def __str__(self):
         return str(self())
 
-    def reset(self, value_list):
+    def reset(self, value_list=None):
         self.redis_.delete(self.key_)
-        self.redis_.rpush(self.key_,
+        if value_list:
+            self.redis_.rpush(self.key_,
                           *[self.converter_.from_value(v) for v in value_list])
 
     def append(self, value):

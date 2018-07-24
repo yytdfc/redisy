@@ -26,9 +26,13 @@ class RedisSet:
         return self.redis_.sismember(self.key_,
                                      self.converter_.from_value(key))
 
-    def reset(self, value_list):
+    def __delitem__(self, key):
+        self.redis_.srem(self.key_, self.converter_.from_value(key))
+
+    def reset(self, value_list=None):
         self.redis_.delete(self.key_)
-        self.redis_.sadd(self.key_,
+        if value_list:
+            self.redis_.sadd(self.key_,
                          *[self.converter_.from_value(v) for v in value_list])
 
     def add(self, value):

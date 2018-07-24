@@ -37,10 +37,11 @@ class RedisHash:
     def __delitem__(self, key):
         self.redis_.hdel(self.key_, self.converter_.from_value(key))
 
-    def reset(self, value_dict):
+    def reset(self, value_dict=None):
         self.redis_.delete(self.key_)
-        self.redis_.hmset(
-            self.key_, {
+        if value_dict:
+            self.redis_.hmset(
+                self.key_, {
                 self.converter_.from_value(k): self.converter_.from_value(v)
                 for k, v in value_dict.items()
             })
