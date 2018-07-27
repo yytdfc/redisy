@@ -12,6 +12,7 @@ class Redisy(Redis):
     def __init__(self, **args):
         super(Redisy, self).__init__(**args)
         self.converter_ = Converter('json')
+        self.args_ = args
 
     def __getitem__(self, key):
         t = self.type(key)
@@ -39,6 +40,10 @@ class Redisy(Redis):
 
     def __delitem__(self, key):
         self.delete(key)
+
+    def select(self, db):
+        self.args_['db'] = db
+        super(Redisy, self).__init__(**self.args_)
 
     def list(self, key):
         return RedisList(self, key, self.converter_)

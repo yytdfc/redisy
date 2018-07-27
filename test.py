@@ -21,6 +21,14 @@ def test_converter():
 
 def test_connect():
     assert (r.ping())
+    r['pytest'] = 0
+    assert ('pytest' in r)
+    r.select(1)
+    assert ('pytest' not in r)
+    r.select(0)
+    assert ('pytest' in r)
+    del r['pytest']
+    assert ('pytest' not in r)
 
 
 def test_keyvalue():
